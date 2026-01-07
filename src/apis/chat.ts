@@ -1,4 +1,4 @@
-﻿import { client } from "./kyClient";
+import { client } from "./kyClient";
 
 export type MessageType = "TALK" | "VERIFY_START";
 
@@ -30,4 +30,3 @@ export const getMessage = async (getherId: number, params: MessageParam): Promis
 export const sendMessage = async (getherId: number, data: MessageRequest): Promise<Message> => {
     return await client.post(`gethers/${getherId}/chats`, {json: data}).json<Message>();
 }
-

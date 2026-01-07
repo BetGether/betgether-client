@@ -1,4 +1,4 @@
-﻿import { client } from "./kyClient";
+import { client } from "./kyClient";
 
 export type GetherStatus = "CREATED" | "UPDATED" | "JOIN_SUCCESS";
 

@@ -1,6 +1,7 @@
 import { client } from "./kyClient";
 
 export type GetherStatus = "CREATED" | "UPDATED" | "JOIN_SUCCESS";
+export type MyChallengeStatus = "OPEN" | "CLOSE";
 
 export interface Gether {
     getherId: number;
@@ -11,11 +12,13 @@ export interface Gether {
 
 export interface MyGether extends Gether {
     joinedAt: string;
+    challengeStatus: MyChallengeStatus;
 }
 
 export interface SearchGether extends Gether {
     description: string;
     createdAt: string;
+    challengeTitle: string;
 }
 
 export interface SearchGetherParam {
@@ -42,6 +45,8 @@ export interface GetherInviteCode {
 export interface GetherDetail extends Gether, GetherInviteCode{
     description: string;
     isHost: boolean;
+    challengeTitle: string;
+    challengeBetBoint: number;
 }
 
 

@@ -16,12 +16,12 @@ export const client = ky.create({
         //   }
       },
     ],
-    afterResponse: [
-      async (request, options, response) => {
-        if (response.status === 500) {
-          // 서버 에러 등 에러를 잡을 때 사용
-        }
-      },
-    ],
+    // afterResponse: [
+    //   async (request, options, response) => {
+    //     if (response.status === 500) {
+    //       // 서버 에러 등 에러를 잡을 때 사용
+    //     }
+    //   },
+    // ],
   },
 });

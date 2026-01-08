@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { useState } from "react";
-//import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { postLogin } from "../../apis/auth";
 
 const LandingPage = () => {
-    //const navigate = useNavigate();
+    const navigate = useNavigate();
     const [nickname, setNickname] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
@@ -21,12 +21,11 @@ const LandingPage = () => {
         setError("");
 
         try {
-            const response = await postLogin({ nickname: nickname.trim() });
-            //사용자 정보 저장
-            localStorage.setItem("nickname", response.nickname);
-            localStorage.setItem("userId", response.userId.toString());
-            //navigate("/gethers/my");
-            alert({nickname});
+            await postLogin({ nickname: nickname.trim() });
+            //백엔드에서 세션이나 쿠키로 유저 데이터 관리하면 필요없음
+            // localStorage.setItem("nickname", response.nickname);
+            // localStorage.setItem("userId", response.userId.toString());
+            navigate("/gethers/my");
         } catch (err) {
             console.error("로그인 실패:", err);
             setError("로그인에 실패했습니다. 다시 시도해주세요.");

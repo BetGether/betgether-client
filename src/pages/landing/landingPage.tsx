@@ -55,7 +55,7 @@ const LandingPage = () => {
                         maxLength={20}
                     />
                     {error && <ErrorMessage>{error}</ErrorMessage>}
-                    <StartButton>
+                    <StartButton disabled={isLoading}>
                         {isLoading ? "로그인 중.." : "시작하기"}
                     </StartButton>
                 </StartForm>
@@ -113,7 +113,6 @@ const CatchPhraseText = styled.span`
 const StartForm = styled.form`
     display: flex;
     width: 365px;
-    height: 140px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -122,7 +121,7 @@ const StartForm = styled.form`
 
 const NicknameInput = styled.input`
     display: flex;
-    height: 50px;
+    height: 40px;
     padding: 10px 22px;
     justify-content: center;
     align-items: center;
@@ -161,7 +160,7 @@ const ErrorMessage = styled.span`
 const StartButton = styled.button`
     margin-top: 10px;
     display: flex;
-    height: 70px;
+    height: 60px;
     padding: 17px 94px;
     justify-content: center;
     align-items: center;

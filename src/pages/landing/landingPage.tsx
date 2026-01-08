@@ -167,6 +167,7 @@ const StartButton = styled.button`
     align-items: center;
     gap: 10px;
     align-self: stretch;
+    border: none;
     border-radius: 12px;
     background: #6155F5;
 

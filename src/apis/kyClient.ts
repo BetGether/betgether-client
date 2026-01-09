@@ -9,7 +9,7 @@ export const client = ky.create({
         console.log(request);
         const token = getToken();
         if (token) {
-          request.headers.set("Authorization", `${token}`);
+          request.headers.set("Authorization", `Bearer ${token}`);
         }
       },
     ],

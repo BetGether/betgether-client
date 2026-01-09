@@ -4,8 +4,12 @@ import GetherJoinPage from "@/pages/gether/GetherJoinPage";
 import LandingPage from "@/pages/landing/landingPage";
 import GetherPage from "@/pages/gether/GetherPage";
 import MainPage from "@/pages/main/MainPage";
+import GetherInvitePage from "./pages/gether/GetherInvitePage";
+import GetherSettingPage from "./pages/gether/GetherSettingPage";
+import ErrorFallbackPage from "./pages/ErrorFallbackPage";
 import SearchPage from "@/pages/search/SearchPage";
 import CreateGether from "@/pages/gether/CreateGether";
+import VerifyPage from "@/pages/verify/VerifyPage";
 
 export default function Router() {
   const elements = useRoutes([
@@ -18,6 +22,10 @@ export default function Router() {
       element: <GetherPage />,
     },
     {
+      path: "/",
+      element: <LandingPage />,
+    },
+    {
       path: "/login",
       element: <LandingPage />,
     },
@@ -25,9 +33,20 @@ export default function Router() {
       path: "/gethers/my",
       element: <MainPage />,
     },
+    //TODO : 에러 Fallback은 디버깅용 삭제
+    {
+      path: "/error",
+      element: <ErrorFallbackPage />,
+    },
+    { path: "/gether/:getherId/setting", element: <GetherSettingPage /> },
+    { path: "/invite/:inviteCode", element: <GetherInvitePage /> },
     {
       path: "/gethers/search",
-      element: <SearchPage/>,
+      element: <SearchPage />,
+    },
+    {
+      path: "/verify/:verifyToken",
+      element: <VerifyPage />,
     },
     {
       path: "/gethers/create",

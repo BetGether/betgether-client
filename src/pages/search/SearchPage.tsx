@@ -113,6 +113,7 @@ const BackImg = styled.img`
     position: absolute;
     left: 26px;
     padding: 0 6px;
+    &:hover {cursor: pointer;}
 `;
 
 const Title = styled.div`

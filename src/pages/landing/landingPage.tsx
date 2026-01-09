@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { postLogin } from "../../apis/auth";
+import { postLogin } from "@/apis/auth";
 
 const LandingPage = () => {
     const navigate = useNavigate();

@@ -1,6 +1,6 @@
 ﻿import { useRoutes } from "react-router-dom";
-import GetherJoinPage from "./pages/GetherJoinPage";
-import LandingPage from "./pages/landing/landingPage";
+import GetherJoinPage from "@/pages/gether/GetherJoinPage";
+import LandingPage from "@/pages/landing/landingPage";
 
 export default function Router() {
   const elements = useRoutes([

@@ -51,14 +51,14 @@ const GetherJoinPage = () => {
       <GetherBetContainer>
         <GetherBetInfoDiv>{"하드코딩"}</GetherBetInfoDiv>
         <GetherBetPointDiv>
-          {"100하드코딩"}
-          <GetherPointIcon />
+          <div>100하드코딩</div>
+          <GetherPointIcon clickable={false} />
         </GetherBetPointDiv>
       </GetherBetContainer>
       <GetherFooter>
         <GetherDate>{"2025.09.09하드코딩"}</GetherDate>
         <GetherMemberCount>
-          <GetherMemberIcon />
+          <GetherMemberIcon clickable={false} />
           {" " + gether.participantCount}
         </GetherMemberCount>
       </GetherFooter>
@@ -143,6 +143,7 @@ const GetherBetPointDiv = styled.div`
   background: rgba(255, 255, 255, 0.2);
   align-items: center;
   flex-grow: 1;
+  justify-content: space-between;
 `;
 const GetherFooter = styled.div`
   display: flex;

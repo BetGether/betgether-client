@@ -4,7 +4,9 @@ import GetherJoinPage from "@/pages/gether/GetherJoinPage";
 import LandingPage from "@/pages/landing/landingPage";
 import GetherPage from "@/pages/gether/GetherPage";
 import MainPage from "@/pages/main/MainPage";
-
+import GetherInvitePage from "./pages/gether/GetherInvitePage";
+import GetherSettingPage from "./pages/gether/GetherSettingPage";
+import ErrorFallbackPage from "./pages/ErrorFallbackPage";
 
 export default function Router() {
   const elements = useRoutes([
@@ -24,6 +26,13 @@ export default function Router() {
       path: "/gethers/my",
       element: <MainPage />,
     },
+    //TODO : 에러 Fallback은 디버깅용 삭제
+    {
+      path: "/error",
+      element: <ErrorFallbackPage />,
+    },
+    { path: "/gether/:getherId/setting", element: <GetherSettingPage /> },
+    { path: "/invite/:inviteCode", element: <GetherInvitePage /> },
   ]);
 
   return elements;

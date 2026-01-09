@@ -43,12 +43,15 @@ const GetherJoinPage = () => {
     joinGether(Number(getherId));
     navigate(`/gether/${getherId}`);
   };
+  const onBackClick = () => {
+    navigate(-1);
+  };
   //TODO : 채팅 역순
   //TODO : 에러헨들링
   return (
     <BackgroundContainer $thumbnail={gether.imageUrl}>
       <BetGetherHeader>
-        <GetherGoBackButton onClick={() => navigate(-1)}>
+        <GetherGoBackButton onClick={onBackClick}>
           <GetherGoBackIcon/>
         </GetherGoBackButton>
       </BetGetherHeader>

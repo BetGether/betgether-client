@@ -35,12 +35,8 @@ const Card = styled.div<{$isTop3: boolean; $isMyRank: boolean}>`
     align-items: center;
     border-radius: 15px;
 
-    background: ${props => props.$isTop3 ? 'linear-gradient(0deg, #F2F0FF 0%, #F2F0FF 100%), #FFF' : 'linear-gradient(0deg, #F8F8F8 0%, #F8F8F8 100%), #FFF'};
+    background: ${props => props.$isTop3 ? '#F2F0FF' : '#F8F8F8'};
     border: ${props => props.$isMyRank ? '1px solid #E1E1E1;' : 'none'};
-
-    &:not(:last-child) {
-        border-bottom: 1px solid #F3F4F6;
-    }
 `;
 
 const RankerInfo = styled.div`

@@ -27,10 +27,6 @@ export default function Router() {
       element: <LandingPage />,
     },
     {
-      path: "/login",
-      element: <LandingPage />,
-    },
-    {
       path: "/gethers/my",
       element: <MainPage />,
     },

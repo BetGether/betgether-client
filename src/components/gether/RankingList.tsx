@@ -16,7 +16,7 @@ const RankingList = ({ ranking }: RankingListProps) => {
             <MyRankCard>
                 <SectionTitle>내 순위</SectionTitle>
                     <RankingCard key={ranking.myRanking.rank} ranker={ranking.myRanking}
-                    isMyRank={true}/>
+                     isTop3={ranking.myRanking.rank <=3 } isMyRank={true}/>
             </MyRankCard>
 
             <AllRankCard>

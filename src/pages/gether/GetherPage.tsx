@@ -189,7 +189,7 @@ const GetherPage = () => {
       </BetGetherModal>
       <BetGetherHeader>
         <GetherRowFlexDiv>
-          <GetherGoBackIcon color="#757575" />
+          <GetherGoBackIcon color="#757575" onClick={() => navigate(-1)}/>
           {/* TODO : 야매 방식, 실제로는 다른 방식으로 center를 맞춰야 */}
           {/* TODO : user-select none 전체에 걸고, 필요한 건 해제 */}
           <GetherGoBackIcon color="#fff" />

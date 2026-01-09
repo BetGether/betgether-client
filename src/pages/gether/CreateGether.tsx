@@ -59,7 +59,7 @@ const CreateGether = () => {
                 imageUrl: imageUrl,
                 isPublic: isPublic,
                 challenge: {
-                    name: challengeName.trim(),
+                    title: challengeName.trim(),
                     betPoint: parseInt(betPoint)
                 }
             };
@@ -68,7 +68,7 @@ const CreateGether = () => {
             console.log("게더 생성 성공:", response);
             console.log("생성된 게더 ID:", response.getherId);
             console.log("상태:", response.status);
-            navigate(`/gethers/${response.getherId}`);
+            navigate(`/gether/${response.getherId}`);
         } catch (error) {
             console.error("게더 생성 실패:", error);
             alert("게더 생성에 실패했습니다.");

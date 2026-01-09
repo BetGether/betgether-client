@@ -13,7 +13,7 @@ const GetherCard = ({gether}: GetherCardProps) => {
     const navigate = useNavigate();
 
     return (
-        <Card onClick={() => navigate(`/gethers/${gether.getherId}`)}>
+        <Card onClick={() => navigate(`/gether/${gether.getherId}`)}>
             <ImageWapper>
                 <CardImage src={gether.imageUrl} alt={gether.title}/>
                 <Overlay/>

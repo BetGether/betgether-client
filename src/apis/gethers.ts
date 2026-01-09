@@ -32,7 +32,7 @@ export interface GetherRequest {
     imageUrl: string;
     isPublic: boolean;
     challenge: {
-        name: string;
+        title: string;
         betPoint: number;
     }
 }

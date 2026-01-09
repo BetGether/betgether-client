@@ -179,7 +179,6 @@ const StartButton = styled.button`
   margin-top: 10px;
   display: flex;
   height: 60px;
-  padding: 17px 94px;
   justify-content: center;
   align-items: center;
   gap: 10px;

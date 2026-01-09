@@ -14,7 +14,7 @@ const SearchCard = ({gether}: GetherCardProps) => {
 
     return (
         <CardLayout>
-            <Card onClick={() => navigate(`/gether/${gether.getherId}`)}>
+            <Card onClick={() => navigate(`/gether/join/${gether.getherId}`)}>
                 <GetherImage src={gether.imageUrl} alt={gether.title}/>
                 <CardContent>
                     <GetherTitle>

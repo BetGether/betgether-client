@@ -48,6 +48,7 @@ export interface GetherInviteCode {
 
 export interface GetherDetail extends Gether, GetherInviteCode{
     description: string;
+    createdAt: string;
     isHost: boolean;
     challengeTitle: string;
     challengeBetPoint: number;

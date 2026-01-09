@@ -6,7 +6,7 @@ export const client = ky.create({
   hooks: {
     beforeRequest: [
       (request) => {
-        console.log(request);
+        // console.log(request);
         const token = getToken();
         if (token) {
           request.headers.set("Authorization", `Bearer ${token}`);

@@ -4,6 +4,7 @@ import { type GetherDetail, getGetherDetail, joinGether } from "@/apis/gethers";
 import { useNavigate, useParams } from "react-router-dom";
 import BetGetherBtn from "@/components/BetGetherBtn";
 import BetGetherHeader from "@/components/BetGetherHeader";
+import ChallengeIcon from "@/assets/Icon/trackingWhite.svg";
 import {
   GetherGoBackIcon,
   GetherMemberIcon,
@@ -42,26 +43,34 @@ const GetherJoinPage = () => {
     joinGether(Number(getherId));
     navigate(`/gether/${getherId}`);
   };
+  const onBackClick = () => {
+    navigate(-1);
+  };
   //TODO : 채팅 역순
   //TODO : 에러헨들링
   return (
     <BackgroundContainer $thumbnail={gether.imageUrl}>
       <BetGetherHeader>
-        <GetherGoBackIcon />
+        <GetherGoBackButton onClick={onBackClick}>
+          <GetherGoBackIcon/>
+        </GetherGoBackButton>
       </BetGetherHeader>
       <GetherInfoContainer>
         <GetherNameDiv>{gether.title}</GetherNameDiv>
         <GetherDescDiv>{gether.description}</GetherDescDiv>
       </GetherInfoContainer>
       <GetherBetContainer>
-        <GetherBetInfoDiv>{gether.challengeTitle}</GetherBetInfoDiv>
+        <GetherBetInfoDiv>
+          <img src={ChallengeIcon} alt="challenge"/>
+          {gether.challengeTitle}
+          </GetherBetInfoDiv>
         <GetherBetPointDiv>
           <div>{gether.challengeBetPoint}</div>
           <GetherPointIcon clickable={false} />
         </GetherBetPointDiv>
       </GetherBetContainer>
       <GetherFooter>
-        <GetherDate>{gether.challengeBetPoint}</GetherDate>
+        <GetherDate>개설일 {gether.createdAt}</GetherDate>
         <GetherMemberCount>
           <GetherMemberIcon clickable={false} />
           {" " + gether.participantCount}
@@ -103,10 +112,21 @@ const BackgroundContainer = styled.div<BackgroundContainerProps>`
   color: #fff;
 `;
 
+const GetherGoBackButton = styled.button`
+  width: 28px;
+  height: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  border: none;
+`;
+
 const GetherInfoContainer = styled.div`
   margin: auto 0 25px 25px;
 `;
 const GetherNameDiv = styled.div`
+  margin-bottom: 8px;
   color: #fff;
   font-family: var(--Static-Headline-Medium-Font, Roboto);
   font-size: var(--Static-Headline-Medium-Size, 28px);
@@ -137,7 +157,9 @@ const GetherBetContainer = styled.div`
 `;
 const GetherBetInfoDiv = styled.div`
   display: flex;
+  height: 100%;
   padding: 15px;
+  gap: 12px;
   align-items: center;
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.2);

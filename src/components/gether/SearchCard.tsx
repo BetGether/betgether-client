@@ -26,8 +26,7 @@ const SearchCard = ({gether}: GetherCardProps) => {
                     <GetherDetail>
                         <ChallengeInfo>
                             <img src={TrackingOn} alt="onIcon"/>
-                            챌린지 이름
-                            {/* {gether.challengeTitle} */}
+                            {gether.challengeTitle}
                         </ChallengeInfo>
                         <ParticipantInfo>
                             <img src={PersonGray} alt="personIcon"/>

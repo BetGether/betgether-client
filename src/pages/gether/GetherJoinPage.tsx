@@ -42,6 +42,8 @@ const GetherJoinPage = () => {
     joinGether(Number(getherId));
     navigate(`/gether/${getherId}`);
   };
+  //TODO : 채팅 역순
+  //TODO : 에러헨들링
   return (
     <BackgroundContainer $thumbnail={gether.imageUrl}>
       <BetGetherHeader>

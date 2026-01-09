@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import type { SearchGether } from "../../apis/gethers";
-import { getSearchingGether } from "../../apis/gethers";
-import { useState, useEffect, useMemo } from "react";
+import type { SearchGether } from "@/apis/gethers";
+import { getSearchingGether } from "@/apis/gethers";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import SearchCard from "../../components/gether/SearchCard";
-import SearchGray from "../../assets/Icon/searchGray.svg"
-import Cancel from "../../assets/Icon/cancel.svg";
-import Back from "../../assets/Icon/back.svg"
+import SearchCard from "@/components/gether/SearchCard";
+import SearchGray from "@/assets/Icon/searchGray.svg"
+import Cancel from "@/assets/Icon/cancel.svg";
+import Back from "@/assets/Icon/back.svg"
 
 const SearchPage = () => {
     const navigate = useNavigate();

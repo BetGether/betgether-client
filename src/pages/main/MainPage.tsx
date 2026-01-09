@@ -1,15 +1,15 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import { getMyGether } from "../../apis/gethers";
-import { getRanking } from "../../apis/ranking";
-import type { MyGether } from "../../apis/gethers";
-import type { RankingResponse } from "../../apis/ranking";
-import MyGetherList from "../../components/gether/MyGetherList";
-import RankingList from "../../components/gether/RankingList";
-import SearchWhite from "../../assets/Icon/searchWhite.svg";
-import Point from "../../assets/Icon/point.svg";
+import { getMyGether } from "@/apis/gethers";
+import { getRanking } from "@/apis/ranking";
+import type { MyGether } from "@/apis/gethers";
+import type { RankingResponse } from "@/apis/ranking";
+import MyGetherList from "@/components/gether/MyGetherList";
+import RankingList from "@/components/gether/RankingList";
+import SearchWhite from "@/assets/Icon/searchWhite.svg";
+import Point from "@/assets/Icon/point.svg";
 import { useNavigate } from "react-router-dom";
-import BackgroundImg from "../../assets/Image/backgroundImage.png";
+import BackgroundImg from "@/assets/Image/backgroundImage.png";
 
 type TabType = "gether" | "ranking";
 

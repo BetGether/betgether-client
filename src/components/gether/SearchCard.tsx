@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import type { SearchGether} from "../../apis/gethers";
+import type { SearchGether} from "@/apis/gethers";
 import { useNavigate } from "react-router-dom";
-import PersonGray from "../../assets/Icon/personGray.svg"
-import TrackingOn from "../../assets/Icon/trackingOn.svg"
+import PersonGray from "@/assets/Icon/personGray.svg"
+import TrackingOn from "@/assets/Icon/trackingOn.svg"
 
 
 interface GetherCardProps {

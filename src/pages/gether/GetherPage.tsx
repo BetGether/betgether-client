@@ -42,7 +42,7 @@ const GetherPage = () => {
   };
 
   const onBackClick = () => {
-    navigate("-1");
+    navigate(-1);
   };
   const onShareClick = async () => {
     try {

@@ -17,6 +17,7 @@ import BetGetherModal from "@/components/BetGetherModal";
 import AddPointImg from "@/assets/gether/getpoint.png";
 import BetGetherBtn from "@/components/BetGetherBtn";
 import { getGetherDetail, type GetherDetail } from "@/apis/gethers";
+import { verifyConfirm, type VerifyConfirmResponse } from "@/apis/verify";
 
 const GetherPage = () => {
   //TODO : Gether 참여자가 아니면 다른 페이지 보여주기
@@ -28,6 +29,7 @@ const GetherPage = () => {
   const [chatData, setChatData] = useState<Message[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [getherData, setGetherData] = useState<GetherDetail>();
+  const [verifyData, setVerifyData] = useState<VerifyConfirmResponse>();
   const client = useRef<Client | null>(null);
 
   const navigate = useNavigate();
@@ -54,7 +56,16 @@ const GetherPage = () => {
     navigate(`/gether/${getherId}/setting`);
   };
   const onResultClick = () => {
-    setIsModalOpen(true);
+    (async () => {
+      try {
+        const data = await verifyConfirm(Number(getherId));
+        setVerifyData(data);
+      } catch (err) {
+        console.error("상세 정보 로드 실패:", err);
+      } finally {
+        setIsModalOpen(true);
+      }
+    })();
   };
 
   const closeModal = () => {
@@ -163,13 +174,15 @@ const GetherPage = () => {
       <BetGetherModal isOpen={isModalOpen} onClose={closeModal}>
         <PointImg src={AddPointImg} />
         <PointAmountDiv>
-          {"하드코딩"}, {"하드코딩"} P 획득!
+          {verifyData?.nickname}, {verifyData?.earnedPoint} P 획득!
         </PointAmountDiv>
-        <PointBalanceDiv>총 베팅 포인트 {"하드코딩"} P</PointBalanceDiv>
+        <PointBalanceDiv>
+          총 베팅 포인트 {verifyData?.totalPoint} P
+        </PointBalanceDiv>
         <PointParticipantDiv>
           <GetherMemberIcon color="#757575" size={16} clickable={false} />
           <div>
-            {"하드코딩"} / {"하드코딩"}
+            {verifyData?.totalParticipation} / {verifyData?.totalGethers}
           </div>
         </PointParticipantDiv>
         <BetGetherBtn onClick={closeModal}>포인트 획득</BetGetherBtn>

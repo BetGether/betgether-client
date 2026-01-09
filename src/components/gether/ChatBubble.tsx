@@ -37,8 +37,10 @@ const ChatBubble = ({
         {/* 게더 인증인지 단순 채팅인지 */}
         {messageData.type === "VERIFY_START" ? (
           <ChatBubbleDiv $isVerify={true}>
-            게더 인증을 시작합니다.
-            <BetGetherBtn onClick={openModal}>게더 인증</BetGetherBtn>
+            인증 끝!
+            <br />
+            결과를 확인해보세요
+            <BetGetherBtn onClick={openModal}>결과 확인</BetGetherBtn>
           </ChatBubbleDiv>
         ) : (
           <ChatBubbleDiv $isVerify={false}>{messageData.content}</ChatBubbleDiv>

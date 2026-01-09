@@ -16,8 +16,6 @@ import { Client, type IMessage } from "@stomp/stompjs";
 const GetherPage = () => {
   //TODO : Gether 참여자가 아니면 다른 페이지 보여주기
   const { getherId } = useParams<{ getherId: string }>();
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [isConnected, setIsConnected] = useState<boolean>(false);
   const [inputText, setInputText] = useState<string>("");
   const [chatData, setChatData] = useState<Message[]>([]);
@@ -38,7 +36,7 @@ const GetherPage = () => {
   const connect = () => {
     client.current = new Client({
       // SockJS를 사용하기 위한 설정
-      webSocketFactory: () => new SockJS("http://localhost:8080/ws"),
+      webSocketFactory: () => new SockJS(`${import.meta.env.VITE_API_URL}/ws`),
       connectHeaders: {
         userId: localStorage.getItem("userId") ?? "1",
       },
@@ -88,7 +86,7 @@ const GetherPage = () => {
 
   // 5. 메시지 전송 (sendMessage와 동일)
   const sendMessageHandler = () => {
-    console.log(inputText);
+    if (!isConnected) alert("서버가 연결되지 않았습니다");
     if (!inputText.trim()) return;
 
     if (client.current && client.current.connected) {
@@ -112,19 +110,13 @@ const GetherPage = () => {
   useEffect(() => {
     (async () => {
       try {
-        setIsLoading(true);
         const data = await getMessage(Number(getherId));
         setChatData(data.items);
       } catch (err) {
         console.error("상세 정보 로드 실패:", err);
-        setError("데이터를 불러오는 중 오류가 발생했습니다.");
-      } finally {
-        setIsLoading(false);
       }
     })();
   }, []);
-
-  useEffect(() => {}, [getherId]);
 
   return (
     <GetherChatContainer>

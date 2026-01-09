@@ -79,7 +79,7 @@ const GetherPage = () => {
     (async () => {
       try {
         const result = await getGetherDetail(Number(getherId));
-        console.log(result);
+        //console.log(result);
         setGetherData(result);
       } catch (error) {
         console.error("데이터 로드 실패:", error);
@@ -105,7 +105,7 @@ const GetherPage = () => {
       // 연결 성공 시 (onConnected와 동일)
       onConnect: () => {
         setIsConnected(true);
-        console.log("STOMP Connected");
+        //console.log("STOMP Connected");
 
         client.current?.subscribe(
           `/sub/chat/room/${getherId}`,
@@ -127,7 +127,7 @@ const GetherPage = () => {
 
       onDisconnect: () => {
         setIsConnected(false);
-        console.log("STOMP Disconnected");
+        //console.log("STOMP Disconnected");
       },
     });
 
@@ -135,7 +135,7 @@ const GetherPage = () => {
   };
 
   const disconnect = () => {
-    console.log("STOMP DISCONNECTED");
+    //console.log("STOMP DISCONNECTED");
     client.current?.deactivate();
   };
 

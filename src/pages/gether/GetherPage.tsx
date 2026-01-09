@@ -267,6 +267,16 @@ const GetherChatContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
+  -webkit-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+
+  input,
+  div {
+    -webkit-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+  }
 `;
 const GetherChatContentContainer = styled.div`
   display: flex;

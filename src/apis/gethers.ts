@@ -31,6 +31,10 @@ export interface GetherRequest {
     description: string;
     imageUrl: string;
     isPublic: boolean;
+    challenge: {
+        name: string;
+        betPoint: number;
+    }
 }
 
 export interface GetherResponse {

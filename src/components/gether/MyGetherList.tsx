@@ -135,7 +135,7 @@ const MyGetherList = ({ gethers }: MyGetherListProps) => {
                         )}
                     </EmptyState>
                     )}
-                <CreateButton onClick={() => navigate("/gethers")}>
+                <CreateButton onClick={() => navigate("/gethers/create")}>
                     새로운 게더 만들기
                 </CreateButton>
             </GetherList>

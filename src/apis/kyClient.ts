@@ -15,8 +15,8 @@ export const client = ky.create({
     ],
     afterResponse: [
       async (
-        request: Request,
-        options: NormalizedOptions,
+        _request: Request,
+        _options: NormalizedOptions,
         response: Response
       ) => {
         if (response.status === 401) {

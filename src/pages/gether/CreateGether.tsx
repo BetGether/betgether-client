@@ -72,9 +72,9 @@ const CreateGether = () => {
       };
 
       const response: GetherResponse = await createGether(data);
-      console.log("게더 생성 성공:", response);
-      console.log("생성된 게더 ID:", response.getherId);
-      console.log("상태:", response.status);
+      //   console.log("게더 생성 성공:", response);
+      //   console.log("생성된 게더 ID:", response.getherId);
+      //   console.log("상태:", response.status);
       navigate(`/gether/${response.getherId}`);
     } catch (error) {
       console.error("게더 생성 실패:", error);

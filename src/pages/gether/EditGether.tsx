@@ -40,7 +40,7 @@ const EditGether = () => {
       setIsFetching(true);
       try {
         const data: GetherDetail = await getGetherDetail(parseInt(getherId));
-        console.log("불러온 데이터:", data);
+        // console.log("불러온 데이터:", data);
         // 폼에 기존 데이터 채우기
         setTitle(data.title);
         setDescription(data.description);

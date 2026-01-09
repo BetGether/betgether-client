@@ -29,7 +29,6 @@ const GetherSettingPage = () => {
         setTimeLeft((prev) => prev - 1);
       }, 1000);
     } else if (timeLeft === 0) {
-      // 시간 만료 시 처리 (필요하다면)
       console.log("인증 시간이 만료되었습니다.");
     }
 
@@ -73,7 +72,7 @@ const GetherSettingPage = () => {
   };
   const onEditClick = () => {
     //TODO
-    navigator(`/gether/${getherId}/edit`)
+    navigator(`/gether/${getherId}/edit`);
   };
   const onModalClose = () => {
     setIsModalOpen(false);

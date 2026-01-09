@@ -59,16 +59,17 @@ const LandingPage = () => {
   );
 };
 const LandingFooter = styled.div`
+  position: absolute; /* 중앙 정렬 흐름에서 이탈시켜 바닥에 고정 */
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+
   color: #6155f5;
   text-align: center;
   font-family: Quantico;
   font-size: 25.333px;
-  font-style: normal;
   font-weight: 700;
-  line-height: normal;
   letter-spacing: -1.013px;
-
-  margin-bottom: 40px;
 `;
 const LandingBannerWrapper = styled.div`
   display: flex;
@@ -87,10 +88,12 @@ const PageWrapper = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   isolation: isolate;
   background: transparent;
+  gap: 30px;
+  padding-top: 80px;
 
   /* 배경만 담당하는 레이어 */
   &::before {
@@ -124,7 +127,6 @@ const StartForm = styled.form`
   align-items: center;
   gap: 2px;
   padding: 0px 80px;
-  flex: 1;
 `;
 
 const NicknameInput = styled.input`

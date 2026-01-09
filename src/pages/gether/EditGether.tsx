@@ -116,7 +116,7 @@ const EditGether = () => {
         parseInt(getherId),
         data
       );
-      console.log("게더 수정 성공:", response);
+      //   console.log("게더 수정 성공:", response);
       navigate(`/gether/${response.getherId}`);
     } catch (error) {
       console.error("게더 수정 실패:", error);

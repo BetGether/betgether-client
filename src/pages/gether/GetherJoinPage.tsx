@@ -2,12 +2,14 @@
 import styled from "styled-components";
 import { type GetherDetail, getGetherDetail } from "@/apis/gethers";
 import { useParams } from "react-router-dom";
-import PointIcon from "@/assets/gether/point.svg?react";
-import BackIcon from "@/assets/gether/back.svg?react";
-import MemberIcon from "@/assets/gether/member.svg?react";
-import SettingIcon from "@/assets/gether/settings.svg?react";
 import BetGetherBtn from "@/components/BetGetherBtn";
 import BetGetherHeader from "@/components/BetGetherHeader";
+import {
+  GetherGoBackIcon,
+  GetherMemberIcon,
+  GetherPointIcon,
+  GetherSettingIcon,
+} from "@/components/BetGetherIcons";
 
 const GetherJoinPage = () => {
   const { getherId } = useParams<{ getherId: string }>();
@@ -39,8 +41,8 @@ const GetherJoinPage = () => {
   return (
     <BackgroundContainer $thumbnail={gether.imageUrl}>
       <BetGetherHeader>
-        <GetherGoBack />
-        <GetherSetting />
+        <GetherGoBackIcon />
+        <GetherSettingIcon />
       </BetGetherHeader>
       <GetherInfoContainer>
         <GetherNameDiv>{gether.title}</GetherNameDiv>
@@ -92,14 +94,6 @@ const BackgroundContainer = styled.div<BackgroundContainerProps>`
   color: #fff;
 `;
 
-const GetherGoBack = styled(BackIcon)`
-  width: 28px;
-  height: 28px;
-`;
-const GetherSetting = styled(SettingIcon)`
-  width: 28px;
-  height: 28px;
-`;
 const GetherInfoContainer = styled.div`
   margin: auto 0 25px 25px;
 `;
@@ -150,10 +144,6 @@ const GetherBetPointDiv = styled.div`
   align-items: center;
   flex-grow: 1;
 `;
-const GetherPointIcon = styled(PointIcon)`
-  width: 28px;
-  height: 28px;
-`;
 const GetherFooter = styled.div`
   display: flex;
   justify-content: space-between;
@@ -185,30 +175,6 @@ const GetherMemberCount = styled.div`
   font-weight: 500;
   line-height: var(--Static-Body-Small-Line-Height, 16px); /* 133.333% */
   letter-spacing: var(--Static-Body-Small-Tracking, 0.4px);
-`;
-const GetherMemberIcon = styled(MemberIcon)`
-  width: 24px;
-  height: 24px;
-`;
-const GetherJoinBtn = styled.button`
-  display: flex;
-  height: 60px;
-  padding: 17px 94px;
-  margin: 0 27px 56px 27px;
-
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  border-radius: 12px;
-  background: #6155f5;
-
-  color: #fff;
-  text-align: center;
-  font-family: Inter;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
 `;
 
 export default GetherJoinPage;

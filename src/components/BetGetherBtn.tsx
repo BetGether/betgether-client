@@ -1,21 +1,24 @@
 import styled from "styled-components";
 
 type BetGetherBtnPropsType = {
-  isEnabled: boolean;
+  isEnabled?: boolean;
   children: React.ReactNode;
 };
 
 type ButtonProps = {
-  $isEnabled: boolean;
+  $isEnabled?: boolean;
 };
 
-const BetGetherBtn = ({ isEnabled, children }: BetGetherBtnPropsType) => {
+const BetGetherBtn = ({
+  isEnabled = true,
+  children,
+}: BetGetherBtnPropsType) => {
   return <GetherBtn $isEnabled={isEnabled}>{children}</GetherBtn>;
 };
 const GetherBtn = styled.button<ButtonProps>`
   display: flex;
   height: 60px;
-  padding: 17px 94px;
+  padding: 0 20px;
   justify-content: center;
   align-items: center;
   gap: 10px;

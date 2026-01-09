@@ -73,6 +73,7 @@ const GetherSettingPage = () => {
   };
   const onEditClick = () => {
     //TODO
+    navigator(`/gether/${getherId}/edit`)
   };
   const onModalClose = () => {
     setIsModalOpen(false);

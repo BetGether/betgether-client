@@ -41,8 +41,8 @@ const GetherPage = () => {
     }
   };
 
-  const onBackClick = () => {
-    navigate(-1);
+  const onHomeClick = () => {
+    navigate("/gethers/my");
   };
   const onShareClick = async () => {
     try {
@@ -192,7 +192,7 @@ const GetherPage = () => {
       </BetGetherModal>
       <BetGetherHeader>
         <GetherRowFlexDiv>
-          <div onClick={onBackClick}>
+          <div onClick={onHomeClick}>
             <GetherGoBackIcon color="#757575" />
           </div>
           {/* TODO : 야매 방식, 실제로는 다른 방식으로 center를 맞춰야 */}

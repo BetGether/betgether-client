@@ -5,13 +5,17 @@ import { getRanking } from "../../apis/ranking";
 import type { MyGether } from "../../apis/gethers";
 import type { RankingResponse } from "../../apis/ranking";
 import MyGetherList from "../../components/gether/MyGetherList";
+import RankingList from "../../components/gether/RankingList";
 import SearchWhite from "../../assets/Icon/searchWhite.svg";
 import Point from "../../assets/Icon/point.svg";
 import { useNavigate } from "react-router-dom";
 import BackgroundImg from "../../assets/Image/backgroundImage.png";
 
+type TabType = "gether" | "ranking";
+
 const MainPage = () => {
     const navigate = useNavigate();
+    const [activeTab, setActiveTab] = useState<TabType>("gether");
     const [myGethers, setMyGethers] = useState<MyGether[]>([]);
     const [ranking, setRanking] = useState<RankingResponse | null>(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -19,11 +23,14 @@ const MainPage = () => {
     // 랭킹 불러오기 추가
     useEffect(() => {
         const fetchRanking = async () => {
+            setIsLoading(true);
             try {
                 const data = await getRanking();
                 setRanking(data);
             } catch (error) {
                 console.error("랭킹 불러오기 실패:", error);
+            } finally {
+                setIsLoading(false);
             }
         };
         fetchRanking();
@@ -50,7 +57,7 @@ const MainPage = () => {
             <BackgroundImage/>
             <Header>
                 <Logo>Bet:Gether</Logo>
-                <SearchIcon onClick={() => navigate("/search")}>
+                <SearchIcon onClick={() => navigate("/gethers/search")}>
                     <img src={SearchWhite} alt="searchIcon"/>
                 </SearchIcon>              
             </Header>
@@ -67,24 +74,29 @@ const MainPage = () => {
 
             <ContentContainer>
                 <TabContainer>
-                    <MyGetherTab 
-                    onClick={() => navigate("/gethers/my")}
+                    <Tab 
+                        $active={activeTab === "gether"}
+                        onClick={() => setActiveTab("gether")}
                     >
                     나의 게더
-                    </MyGetherTab>
-                    <RankingTab 
-                    onClick={() => navigate("/ranking")}
+                    </Tab>
+                    <Tab 
+                        $active={activeTab === "ranking"}
+                        onClick={() => setActiveTab("ranking")}
                     >
                     게더 랭킹
-                    </RankingTab>
+                    </Tab>
                 </TabContainer>
 
                 <ContentArea>
                     {isLoading ? (
                     <LoadingState>로딩 중...</LoadingState>
-                    ) :  (
-                    <MyGetherList gethers={myGethers} />
-                    )}
+                    ) : activeTab === "gether" ? (
+                        <MyGetherList gethers={myGethers}/>
+                        ) : (
+                            <RankingList ranking={ranking}/>
+                        )
+                    }
                 </ContentArea>
             </ContentContainer>
         </Container>
@@ -92,7 +104,6 @@ const MainPage = () => {
 };
 
 const Container = styled.div`
-    // width: 440px;
     width: 100%;
     height: 100dvh;
     margin: 0 auto;
@@ -145,6 +156,7 @@ const SearchIcon = styled.button`
     padding: 0;
     display: flex;
     align-items: center;
+    &:hover {cursor: pointer;}
 `;
 
 const PointCard = styled.div`
@@ -213,7 +225,6 @@ const ContentContainer = styled.div`
 
 const TabContainer = styled.div`
     display: flex;
-    height: 68px;
     padding: 7px;
     align-items: center;
     border-radius: 50px;
@@ -221,45 +232,35 @@ const TabContainer = styled.div`
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05) inset;
 `;
 
-const MyGetherTab = styled.div`
+const Tab = styled.button<{$active: boolean}>`
     display: flex;
     padding: 10px;
     width: 182px;
+    height: 54px;
     justify-content: center;
     align-items: center;
-    flex: 1;
-    align-self: stretch;
+    border:none;
     border-radius: 30px;
-    background: #FFF;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.10);
+    background: ${props =>props.$active ? '#FFF' : 'transparent'};
+    box-shadow: ${props =>props.$active ? '0 2px 4px 0 rgba(0, 0, 0, 0.10);' : 'none'};
+    transition: all 0.2s;
 
-    color: #000;
+    color: ${props =>props.$active ? '#000' : '#757575'};
 
     font-family: var(--Static-Title-Medium-Font, Roboto);
     font-size: var(--Static-Title-Medium-Size, 16px);
     font-weight: 500;
     line-height: var(--Static-Title-Medium-Line-Height, 24px); /* 150% */
     letter-spacing: var(--Static-Title-Medium-Tracking, 0.15px);
-`;
 
-const RankingTab = styled.div`
-    display: flex;
-    padding: 10px;
-    width: 182px;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
-    align-self: stretch;
-    border-radius: 30px;
+    &:hover {
+        background: ${props => props.$active ? '#F5F5F5' : 'rgba(255, 255, 255, 0.3)'};
+        cursor: pointer;
+    }
 
-    color: #757575;
-
-    font-family: var(--Static-Title-Medium-Font, Roboto);
-    font-size: var(--Static-Title-Medium-Size, 16px);
-    font-style: normal;
-    font-weight: 500;
-    line-height: var(--Static-Title-Medium-Line-Height, 24px); /* 150% */
-    letter-spacing: var(--Static-Title-Medium-Tracking, 0.15px);
+    &:active {
+        transform: scale(0.98);
+    }
 `;
 
 const ContentArea = styled.div`

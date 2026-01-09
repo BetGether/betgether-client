@@ -10,7 +10,7 @@ export default function Router() {
       element: <GetherJoinPage />,
     },
     {
-      path: "/auth/login",
+      path: "/login",
       element: <LandingPage />,
     },
     {

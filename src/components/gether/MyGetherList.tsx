@@ -181,6 +181,10 @@ const SearchInput = styled.input`
     &::placeholder {
         color: #757575;
     }
+
+    &:focus {
+        outline: none;
+    }
 `;
 
 const CancelButton = styled.button`
@@ -188,6 +192,7 @@ const CancelButton = styled.button`
     border: none;
     display: flex;
     align-items: center;
+    &:hover {cursor: pointer;}
 `;
 
 const Header = styled.div`
@@ -308,6 +313,8 @@ const CreateButton = styled.button`
     font-weight: 400;
     line-height: var(--Static-Body-Medium-Line-Height, 20px);
     letter-spacing: var(--Static-Body-Medium-Tracking, 0.25px);
+
+    &:hover {cursor: pointer;}
 `;
 
 export default MyGetherList;

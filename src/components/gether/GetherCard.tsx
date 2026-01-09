@@ -52,6 +52,7 @@ const Card = styled.div`
     height: 141px;
     border-radius: 10px;
     overflow: hidden;
+    &:hover {cursor: pointer;}
 `;
 
 const ImageWapper = styled.div`

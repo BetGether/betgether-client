@@ -1,6 +1,5 @@
 // import { useEffect } from "react";
 // import { getRanking } from "./apis/ranking";
-import MainPage from "./pages/main/MainPage";
 
 import { BrowserRouter } from "react-router-dom";
 import Router from "./Routes";

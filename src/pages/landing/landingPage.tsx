@@ -2,7 +2,8 @@ import styled from "styled-components";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { postLogin } from "@/apis/auth";
-
+import BannerImg from "@/assets/Banner.png";
+import BackgroundImg from "@/assets/Background.png";
 const LandingPage = () => {
   const navigate = useNavigate();
   const [nickname, setNickname] = useState("");
@@ -36,47 +37,83 @@ const LandingPage = () => {
 
   return (
     <PageWrapper>
-      <Landing>
-        <LandingTitle>
-          <TitleText>Bet:Gether</TitleText>
-          <CatchPhraseText>의지는 돈에서 나온다</CatchPhraseText>
-        </LandingTitle>
-        <StartForm onSubmit={handleSubmit}>
-          <NicknameInput
-            type="text"
-            placeholder="사용자 이름"
-            value={nickname}
-            onChange={(e) => setNickname(e.target.value)}
-            disabled={isLoading}
-            maxLength={20}
-          />
-          {error && <ErrorMessage>{error}</ErrorMessage>}
-          <StartButton disabled={isLoading}>
-            {isLoading ? "로그인 중.." : "시작하기"}
-          </StartButton>
-        </StartForm>
-      </Landing>
+      <LandingBannerWrapper>
+        <LandingBanner src={BannerImg} />
+      </LandingBannerWrapper>
+      <StartForm onSubmit={handleSubmit}>
+        <NicknameInput
+          type="text"
+          placeholder="사용자 이름"
+          value={nickname}
+          onChange={(e) => setNickname(e.target.value)}
+          disabled={isLoading}
+          maxLength={20}
+        />
+        {error && <ErrorMessage>{error}</ErrorMessage>}
+        <StartButton disabled={isLoading}>
+          {isLoading ? "로그인 중.." : "시작하기"}
+        </StartButton>
+      </StartForm>
+      <LandingFooter>BET:Gether</LandingFooter>
     </PageWrapper>
   );
 };
+const LandingFooter = styled.div`
+  color: #6155f5;
+  text-align: center;
+  font-family: Quantico;
+  font-size: 25.333px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -1.013px;
 
-const PageWrapper = styled.div`
-  width: 100vw;
-  height: 100vh;
+  margin-bottom: 40px;
+`;
+const LandingBannerWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-right: 60px;
+  background: transparent !important;
 `;
-
-const Landing = styled.div`
-  width: 440px;
-  height: 100dvh;
-
-  display: inline-flex;
+const LandingBanner = styled.img`
+  width: 100%;
+  height: auto;
+  object-fit: contain; /* 이미지가 잘리지 않고 영역 안에 다 들어오게 함 */
+`;
+const PageWrapper = styled.div`
+  width: 100%;
+  height: 100vh;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 180px;
+  isolation: isolate;
+  background: transparent;
+
+  /* 배경만 담당하는 레이어 */
+  &::before {
+    box-shadow: none;
+    content: "";
+    position: fixed; /* 화면에 고정 */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+
+    background-image: url(${BackgroundImg});
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    /* 콘텐츠 뒤로 보내기 */
+    z-index: -1;
+
+    /* (선택 사항) 배경에만 효과를 주고 싶을 때 유용합니다 */
+    /* opacity: 0.5; */
+    /* filter: blur(5px); */
+  }
 `;
 
 const LandingTitle = styled.div`
@@ -108,11 +145,13 @@ const CatchPhraseText = styled.span`
 
 const StartForm = styled.form`
   display: flex;
-  width: 365px;
+  width: 100%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 2px;
+  padding: 0px 80px;
+  flex: 1;
 `;
 
 const NicknameInput = styled.input`

@@ -7,6 +7,7 @@ import MainPage from "@/pages/main/MainPage";
 import GetherInvitePage from "./pages/gether/GetherInvitePage";
 import GetherSettingPage from "./pages/gether/GetherSettingPage";
 import ErrorFallbackPage from "./pages/ErrorFallbackPage";
+import SearchPage from "@/pages/search/SearchPage";
 
 export default function Router() {
   const elements = useRoutes([
@@ -33,6 +34,10 @@ export default function Router() {
     },
     { path: "/gether/:getherId/setting", element: <GetherSettingPage /> },
     { path: "/invite/:inviteCode", element: <GetherInvitePage /> },
+    {
+      path: "/gethers/search",
+      element: <SearchPage />,
+    },
   ]);
 
   return elements;

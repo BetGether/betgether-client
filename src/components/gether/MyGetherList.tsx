@@ -84,6 +84,7 @@ const MyGetherList = ({ gethers }: MyGetherListProps) => {
                 <img src={SearchGray} alt="searchIcon"/>
                 <SearchInput
                     type="text"
+                    name="searchMyGether"
                     placeholder="내 게더를 찾아봐요"
                     value={searchKeyword}
                     onChange={(e) => setSearchKeyword(e.target.value)}

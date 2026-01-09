@@ -3,7 +3,6 @@ import type { MyGether } from "../../apis/gethers";
 import { useNavigate } from "react-router-dom";
 import Person from "../../assets/Icon/person.svg"
 import TrackingOn from "../../assets/Icon/trackingOn.svg"
-import TrackingOff from "../../assets/Icon/trackingOff.svg"
 
 
 interface GetherCardProps {
@@ -20,16 +19,11 @@ const GetherCard = ({gether}: GetherCardProps) => {
                 <Overlay/>
             </ImageWapper>
             
-            {gether.challengeStatus === "OPEN" ? 
+            {gether.challengeStatus === "OPEN" && 
                 <BettingOverlay>
                     <img src={TrackingOn} alt="challengeOpen"/>
                     <BettingInfo>베팅 중</BettingInfo>
                 </BettingOverlay> 
-                : 
-                <BettingOverlay>
-                    <img src={TrackingOff} alt="challengeClose"/>
-                    <BettingInfo>베팅 종료</BettingInfo>
-                </BettingOverlay>
             }
 
             <CardContent>

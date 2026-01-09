@@ -1,4 +1,5 @@
 ﻿import { client } from "./kyClient";
+import { saveToken } from "../utils/token";
 
 // 요청 데이터 타입
 export interface LoginRequest {
@@ -13,5 +14,7 @@ export interface LoginResponse {
 }
 
 export const postLogin = async (data: LoginRequest): Promise<LoginResponse> => {
-  return await client.post("auth/login", { json: data }).json<LoginResponse>();
+  const response = await client.post("auth/login", { json: data }).json<LoginResponse>();
+  saveToken(response.accessToken);
+  return response;
 };

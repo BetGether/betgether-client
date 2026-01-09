@@ -16,6 +16,7 @@ import { Client, type IMessage } from "@stomp/stompjs";
 import BetGetherModal from "@/components/BetGetherModal";
 import AddPointImg from "@/assets/gether/getpoint.png";
 import BetGetherBtn from "@/components/BetGetherBtn";
+import { getGetherDetail, type GetherDetail } from "@/apis/gethers";
 
 const GetherPage = () => {
   //TODO : Gether 참여자가 아니면 다른 페이지 보여주기
@@ -24,9 +25,11 @@ const GetherPage = () => {
   const [inputText, setInputText] = useState<string>("");
   const [chatData, setChatData] = useState<Message[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [getherData, setGetherData] = useState<GetherDetail>();
+  const [isLoading, setIsLoading] = useState<boolean>();
   const client = useRef<Client | null>(null);
 
-  const navigator = useNavigate();
+  const navigate = useNavigate();
 
   const handleSendMessage = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
@@ -35,12 +38,20 @@ const GetherPage = () => {
     }
   };
 
-  const onShareClick = () => {
+  const onShareClick = async () => {
     //TODO : 공유 클립보드
+    try {
+      await navigator.clipboard.writeText(
+        window.location.origin + "/invite/" + (getherData?.inviteCode ?? "")
+      );
+      alert("클립보드에 복사되었습니다!");
+    } catch (error) {
+      console.error("복사 실패:", error);
+      alert("복사에 실패했습니다.");
+    }
   };
   const onSettingClick = () => {
-    //TODO : 설정으로 이동
-    navigator(`/gether/${getherId}/setting`);
+    navigate(`/gether/${getherId}/setting`);
   };
   const onResultClick = () => {
     setIsModalOpen(true);
@@ -49,7 +60,21 @@ const GetherPage = () => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
   useEffect(() => {
+    (async () => {
+      try {
+        setIsLoading(true);
+        const result = await getGetherDetail(Number(getherId));
+        console.log(result);
+        setGetherData(result);
+      } catch (error) {
+        console.error("데이터 로드 실패:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    })();
+
     connect();
     return () => disconnect(); // 언마운트 시 연결 해제
   }, [getherId]);
@@ -114,12 +139,12 @@ const GetherPage = () => {
       const chatMessage: MessageSendRequest = {
         content: inputText,
         type: "TALK",
-        userId: 1, // 실제 유저 ID (전역 상태에서 가져오기)
+        userId: Number(localStorage.getItem("userId")),
         getherId: Number(getherId),
       };
 
       client.current.publish({
-        destination: "/pub/chat/message/1",
+        destination: `/pub/chat/message/${getherId}`,
         body: JSON.stringify(chatMessage),
       });
 

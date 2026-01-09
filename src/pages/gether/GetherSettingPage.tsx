@@ -29,7 +29,7 @@ const GetherSettingPage = () => {
         setTimeLeft((prev) => prev - 1);
       }, 1000);
     } else if (timeLeft === 0) {
-      console.log("인증 시간이 만료되었습니다.");
+      //console.log("인증 시간이 만료되었습니다.");
     }
 
     return () => {

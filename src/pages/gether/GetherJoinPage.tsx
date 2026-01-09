@@ -1,14 +1,13 @@
 ﻿import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { type GetherDetail, getGetherDetail } from "@/apis/gethers";
-import { useParams } from "react-router-dom";
+import { type GetherDetail, getGetherDetail, joinGether } from "@/apis/gethers";
+import { useNavigate, useParams } from "react-router-dom";
 import BetGetherBtn from "@/components/BetGetherBtn";
 import BetGetherHeader from "@/components/BetGetherHeader";
 import {
   GetherGoBackIcon,
   GetherMemberIcon,
   GetherPointIcon,
-  GetherSettingIcon,
 } from "@/components/BetGetherIcons";
 
 const GetherJoinPage = () => {
@@ -16,6 +15,7 @@ const GetherJoinPage = () => {
   const [gether, setGether] = useState<GetherDetail | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
   useEffect(() => {
     if (!getherId) return;
 
@@ -38,11 +38,14 @@ const GetherJoinPage = () => {
   if (error) return <div>{error}</div>;
   if (!gether) return <div>데이터를 찾을 수 없습니다.</div>;
 
+  const onBtnClick = () => {
+    joinGether(Number(getherId));
+    navigate(`/gether/${getherId}`);
+  };
   return (
     <BackgroundContainer $thumbnail={gether.imageUrl}>
       <BetGetherHeader>
         <GetherGoBackIcon />
-        <GetherSettingIcon />
       </BetGetherHeader>
       <GetherInfoContainer>
         <GetherNameDiv>{gether.title}</GetherNameDiv>
@@ -51,18 +54,22 @@ const GetherJoinPage = () => {
       <GetherBetContainer>
         <GetherBetInfoDiv>{"하드코딩"}</GetherBetInfoDiv>
         <GetherBetPointDiv>
-          {"100하드코딩"}
-          <GetherPointIcon />
+          <div>100하드코딩</div>
+          <GetherPointIcon clickable={false} />
         </GetherBetPointDiv>
       </GetherBetContainer>
       <GetherFooter>
         <GetherDate>{"2025.09.09하드코딩"}</GetherDate>
         <GetherMemberCount>
-          <GetherMemberIcon />
+          <GetherMemberIcon clickable={false} />
           {" " + gether.participantCount}
         </GetherMemberCount>
       </GetherFooter>
-      <BetGetherBtn isEnabled={true}>참여 하기</BetGetherBtn>
+      <BetGetherBtnWrapper>
+        <BetGetherBtn isEnabled={true} onClick={onBtnClick}>
+          참여 하기
+        </BetGetherBtn>
+      </BetGetherBtnWrapper>
       {/* <GetherJoinBtn>참여 하기</GetherJoinBtn> */}
     </BackgroundContainer>
   );
@@ -143,6 +150,7 @@ const GetherBetPointDiv = styled.div`
   background: rgba(255, 255, 255, 0.2);
   align-items: center;
   flex-grow: 1;
+  justify-content: space-between;
 `;
 const GetherFooter = styled.div`
   display: flex;
@@ -175,6 +183,10 @@ const GetherMemberCount = styled.div`
   font-weight: 500;
   line-height: var(--Static-Body-Small-Line-Height, 16px); /* 133.333% */
   letter-spacing: var(--Static-Body-Small-Tracking, 0.4px);
+`;
+
+const BetGetherBtnWrapper = styled.div`
+  padding: 0 25px 20px 25px;
 `;
 
 export default GetherJoinPage;

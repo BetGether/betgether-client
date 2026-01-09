@@ -6,10 +6,13 @@ import MemberIcon from "@/assets/gether/member.svg?react";
 import SettingIcon from "@/assets/gether/settings.svg?react";
 import ShareIcon from "@/assets/gether/share.svg?react";
 import DeleteIcon from "@/assets/gether/delete.svg?react";
+import CreateIcon from "@/assets/gether/create.svg?react";
+import EditIcon from "@/assets/gether/edit.svg?react";
 
 interface IconProps {
   size?: number;
   color?: string;
+  clickable?: boolean;
 }
 
 const withIconStyle = (
@@ -19,6 +22,7 @@ const withIconStyle = (
   return styled(Component)<IconProps>`
     width: ${({ size }) => size || defaultSize}px;
     height: ${({ size }) => size || defaultSize}px;
+    cursor: ${({ clickable = true }) => (clickable ? "pointer" : "default")};
     display: block; // 아이콘 하단 여백 제거용
     path {
       fill: ${({ color }) => color};
@@ -33,3 +37,5 @@ export const GetherSettingIcon = withIconStyle(SettingIcon);
 export const GetherShareIcon = withIconStyle(ShareIcon);
 export const GetherMemberIcon = withIconStyle(MemberIcon, 24); //default size 변경 가능
 export const GetherDeleteIcon = withIconStyle(DeleteIcon);
+export const GetherCreateIcon = withIconStyle(CreateIcon);
+export const GetherEditIcon = withIconStyle(EditIcon);

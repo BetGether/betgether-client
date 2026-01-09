@@ -5,7 +5,10 @@ import BetGetherBtn from "../BetGetherBtn";
 type ChatBubblePropsType = {
   messageData: Message;
   skipChatterName?: boolean;
+
+  openModal: () => void;
 };
+
 type ChatBubbleDivProps = {
   $isVerify: boolean;
 };
@@ -18,6 +21,7 @@ const formatChatTime = (isoString: string) => {
 };
 
 const ChatBubble = ({
+  openModal,
   messageData,
   skipChatterName = false,
 }: ChatBubblePropsType) => {
@@ -34,7 +38,7 @@ const ChatBubble = ({
         {messageData.type === "VERIFY_START" ? (
           <ChatBubbleDiv $isVerify={true}>
             게더 인증을 시작합니다.
-            <BetGetherBtn>게더 인증</BetGetherBtn>
+            <BetGetherBtn onClick={openModal}>게더 인증</BetGetherBtn>
           </ChatBubbleDiv>
         ) : (
           <ChatBubbleDiv $isVerify={false}>{messageData.content}</ChatBubbleDiv>
@@ -45,7 +49,10 @@ const ChatBubble = ({
   );
 };
 
-export const MyChatBubble = ({ messageData }: ChatBubblePropsType) => {
+export const MyChatBubble = ({
+  messageData,
+  openModal,
+}: ChatBubblePropsType) => {
   return (
     <MyChatBubbleContainer>
       <ChatBubbleRowDiv>
@@ -53,8 +60,10 @@ export const MyChatBubble = ({ messageData }: ChatBubblePropsType) => {
         <ChatBubbleDate>{formatChatTime(messageData.createdAt)}</ChatBubbleDate>
         {messageData.type === "VERIFY_START" ? (
           <MyChatBubbleDiv $isVerify={true}>
-            게더 인증을 시작합니다.
-            <BetGetherBtn>게더 인증</BetGetherBtn>
+            인증 끝!
+            <br />
+            결과를 확인해보세요
+            <BetGetherBtn onClick={openModal}>결과 확인</BetGetherBtn>
           </MyChatBubbleDiv>
         ) : (
           <MyChatBubbleDiv $isVerify={false}>

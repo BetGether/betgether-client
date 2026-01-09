@@ -3,23 +3,34 @@ import styled from "styled-components";
 import {
   GetherDeleteIcon,
   GetherGoBackIcon,
+  GetherMemberIcon,
   GetherSettingIcon,
   GetherShareIcon,
 } from "@/components/BetGetherIcons";
 import { useEffect, useRef, useState } from "react";
 import { getMessage, type Message, type MessageSendRequest } from "@/apis/chat";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ChatBubble, { MyChatBubble } from "@/components/gether/ChatBubble";
 import SockJS from "sockjs-client";
 import { Client, type IMessage } from "@stomp/stompjs";
+import BetGetherModal from "@/components/BetGetherModal";
+import AddPointImg from "@/assets/gether/getpoint.png";
+import BetGetherBtn from "@/components/BetGetherBtn";
+import { getGetherDetail, type GetherDetail } from "@/apis/gethers";
 
 const GetherPage = () => {
   //TODO : Gether 참여자가 아니면 다른 페이지 보여주기
+  //TODO : BetGether 로고 바꾸기
+  //TODO : QR 모달 제작 후 인증 버튼 누르면 뜨게 하기 (사람들한테 찍게 하도록)
   const { getherId } = useParams<{ getherId: string }>();
   const [isConnected, setIsConnected] = useState<boolean>(false);
   const [inputText, setInputText] = useState<string>("");
   const [chatData, setChatData] = useState<Message[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [getherData, setGetherData] = useState<GetherDetail>();
   const client = useRef<Client | null>(null);
+
+  const navigate = useNavigate();
 
   const handleSendMessage = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
@@ -28,7 +39,39 @@ const GetherPage = () => {
     }
   };
 
+  const onShareClick = async () => {
+    try {
+      await navigator.clipboard.writeText(
+        window.location.origin + "/invite/" + (getherData?.inviteCode ?? "")
+      );
+      alert("클립보드에 복사되었습니다!");
+    } catch (error) {
+      console.error("복사 실패:", error);
+      alert("복사에 실패했습니다.");
+    }
+  };
+  const onSettingClick = () => {
+    navigate(`/gether/${getherId}/setting`);
+  };
+  const onResultClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   useEffect(() => {
+    (async () => {
+      try {
+        const result = await getGetherDetail(Number(getherId));
+        console.log(result);
+        setGetherData(result);
+      } catch (error) {
+        console.error("데이터 로드 실패:", error);
+      }
+    })();
+
     connect();
     return () => disconnect(); // 언마운트 시 연결 해제
   }, [getherId]);
@@ -50,7 +93,6 @@ const GetherPage = () => {
         setIsConnected(true);
         console.log("STOMP Connected");
 
-        // 3. 구독 설정 (Subscription)
         client.current?.subscribe(
           `/sub/chat/room/${getherId}`,
           (message: IMessage) => {
@@ -75,7 +117,6 @@ const GetherPage = () => {
       },
     });
 
-    // 4. 클라이언트 활성화
     client.current.activate();
   };
 
@@ -84,7 +125,6 @@ const GetherPage = () => {
     client.current?.deactivate();
   };
 
-  // 5. 메시지 전송 (sendMessage와 동일)
   const sendMessageHandler = () => {
     if (!isConnected) alert("서버가 연결되지 않았습니다");
     if (!inputText.trim()) return;
@@ -93,12 +133,12 @@ const GetherPage = () => {
       const chatMessage: MessageSendRequest = {
         content: inputText,
         type: "TALK",
-        userId: 1, // 실제 유저 ID (전역 상태에서 가져오기)
+        userId: Number(localStorage.getItem("userId")),
         getherId: Number(getherId),
       };
 
       client.current.publish({
-        destination: "/pub/chat/message/1",
+        destination: `/pub/chat/message/${getherId}`,
         body: JSON.stringify(chatMessage),
       });
 
@@ -120,16 +160,31 @@ const GetherPage = () => {
 
   return (
     <GetherChatContainer>
+      <BetGetherModal isOpen={isModalOpen} onClose={closeModal}>
+        <PointImg src={AddPointImg} />
+        <PointAmountDiv>
+          {"하드코딩"}, {"하드코딩"} P 획득!
+        </PointAmountDiv>
+        <PointBalanceDiv>총 베팅 포인트 {"하드코딩"} P</PointBalanceDiv>
+        <PointParticipantDiv>
+          <GetherMemberIcon color="#757575" size={16} clickable={false} />
+          <div>
+            {"하드코딩"} / {"하드코딩"}
+          </div>
+        </PointParticipantDiv>
+        <BetGetherBtn onClick={closeModal}>포인트 획득</BetGetherBtn>
+      </BetGetherModal>
       <BetGetherHeader>
         <GetherRowFlexDiv>
           <GetherGoBackIcon color="#757575" />
           {/* TODO : 야매 방식, 실제로는 다른 방식으로 center를 맞춰야 */}
+          {/* TODO : user-select none 전체에 걸고, 필요한 건 해제 */}
           <GetherGoBackIcon color="#fff" />
         </GetherRowFlexDiv>
         <GetherTitleDiv>채팅</GetherTitleDiv>
         <GetherRowFlexDiv>
-          <GetherShareIcon color="#757575" />
-          <GetherSettingIcon color="#757575" />
+          <GetherShareIcon onClick={onShareClick} color="#757575" />
+          <GetherSettingIcon onClick={onSettingClick} color="#757575" />
         </GetherRowFlexDiv>
       </BetGetherHeader>
       <GetherChatContentContainer>
@@ -143,6 +198,7 @@ const GetherPage = () => {
                 messageData={value}
                 key={value.messageId}
                 skipChatterName={isSameAsPrevious}
+                openModal={onResultClick}
               />
             );
           else
@@ -151,6 +207,7 @@ const GetherPage = () => {
                 messageData={value}
                 key={value.messageId}
                 skipChatterName={isSameAsPrevious}
+                openModal={onResultClick}
               />
             );
         })}
@@ -223,4 +280,41 @@ const GetherChatInput = styled.input`
   }
 `;
 
+const PointImg = styled.img``;
+const PointAmountDiv = styled.div`
+  color: #000;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 36px */
+  letter-spacing: -0.6px;
+`;
+const PointBalanceDiv = styled.div`
+  color: var(--Font-04_Gray, #767676);
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 27px */
+  letter-spacing: -0.45px;
+  margin-bottom: 16px;
+`;
+const PointParticipantDiv = styled.div`
+  color: #757575;
+  text-align: center;
+  font-family: var(--Static-Body-Small-Font, Roboto);
+  font-size: 15.75px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 21px; /* 133.333% */
+  letter-spacing: -0.2px;
+  margin-bottom: 21px;
+
+  display: flex;
+  align-items: center;
+  gap: 4px;
+`;
 export default GetherPage;

@@ -8,7 +8,7 @@ import GetherInvitePage from "./pages/gether/GetherInvitePage";
 import GetherSettingPage from "./pages/gether/GetherSettingPage";
 import ErrorFallbackPage from "./pages/ErrorFallbackPage";
 import SearchPage from "@/pages/search/SearchPage";
-import VerifyPage from "./pages/verify/verifyPage";
+import VerifyPage from "@/pages/verify/VerifyPage";
 
 export default function Router() {
   const elements = useRoutes([

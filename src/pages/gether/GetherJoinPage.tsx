@@ -8,7 +8,6 @@ import {
   GetherGoBackIcon,
   GetherMemberIcon,
   GetherPointIcon,
-  GetherSettingIcon,
 } from "@/components/BetGetherIcons";
 
 const GetherJoinPage = () => {

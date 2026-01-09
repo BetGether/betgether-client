@@ -18,7 +18,7 @@ export interface MyGether extends Gether {
 export interface SearchGether extends Gether {
     description: string;
     createdAt: string;
-    challengeTitle: string;
+    challengeTitle?: string;
 }
 
 export interface SearchGetherParam {

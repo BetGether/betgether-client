@@ -162,7 +162,7 @@ const GetherPage = () => {
     (async () => {
       try {
         const data = await getMessage(Number(getherId));
-        setChatData(data.items);
+        setChatData(data.items.reverse());
       } catch (err) {
         console.error("상세 정보 로드 실패:", err);
       }

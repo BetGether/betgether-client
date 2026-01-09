@@ -21,6 +21,8 @@ const GetherInvitePage = () => {
         navigate(`/gether/${result.getherId}`);
       } catch (error) {
         console.error("데이터 로드 실패:", error);
+        // 401 에러는 kyClient에서 자동으로 로그인 페이지로 리다이렉트 처리됨
+        setIsLoading(false);
       }
     })();
   }, []);

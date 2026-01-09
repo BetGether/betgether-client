@@ -1,11 +1,13 @@
 import styled from "styled-components";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { postLogin } from "@/apis/auth";
 import BannerImg from "@/assets/Banner.png";
 import BackgroundImg from "@/assets/Background.png";
 const LandingPage = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const redirect = searchParams.get("redirect");
   const [nickname, setNickname] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -26,7 +28,13 @@ const LandingPage = () => {
       //백엔드에서 세션이나 쿠키로 유저 데이터 관리하면 필요없음
       localStorage.setItem("nickname", response.nickname);
       localStorage.setItem("userId", response.userId.toString());
-      navigate("/gethers/my");
+
+      // redirect 파라미터가 있으면 해당 경로로, 없으면 메인 페이지로 이동
+      if (redirect) {
+        navigate(redirect);
+      } else {
+        navigate("/gethers/my");
+      }
     } catch (err) {
       console.error("로그인 실패:", err);
       setError("로그인에 실패했습니다. 다시 시도해주세요.");

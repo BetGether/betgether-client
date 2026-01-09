@@ -182,12 +182,6 @@ npm run dev
 
 # 빌드
 npm run build
-
-# 빌드 결과 미리보기
-npm run preview
-
-# 린트 검사
-npm run lint
 ```
 
 ## 환경 변수
@@ -205,7 +199,7 @@ Vercel과 연동되어 main 브랜치에 푸시 시 자동 배포됩니다.
 
 ## 팀원
 
-해커톤 프로젝트 - BetGether Team
+KUIT 해커톤 프로젝트 - BetGether Team
 
 ## 라이선스
 

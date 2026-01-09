@@ -21,7 +21,8 @@ export const client = ky.create({
       ) => {
         if (response.status === 401) {
           removeToken();
-          window.location.href = "/login";
+          const currentPath = window.location.pathname + window.location.search;
+          window.location.href = `/login?redirect=${encodeURIComponent(currentPath)}`;
         }
         if (!response.ok) {
           window.location.href = "/error";

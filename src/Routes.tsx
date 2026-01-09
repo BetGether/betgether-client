@@ -1,7 +1,10 @@
 ﻿import { useRoutes } from "react-router-dom";
+
 import GetherJoinPage from "@/pages/gether/GetherJoinPage";
 import LandingPage from "@/pages/landing/landingPage";
 import GetherPage from "@/pages/gether/GetherPage";
+import MainPage from "@ /pages/main/MainPage";
+
 
 export default function Router() {
   const elements = useRoutes([
@@ -14,8 +17,12 @@ export default function Router() {
       element: <GetherPage />,
     },
     {
-      path: "/gethers/my",
+      path: "/login",
       element: <LandingPage />,
+    },
+    {
+      path: "/gethers/my",
+      element: <MainPage />,
     },
   ]);
 

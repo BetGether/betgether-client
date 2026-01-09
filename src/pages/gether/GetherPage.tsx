@@ -20,13 +20,14 @@ import { getGetherDetail, type GetherDetail } from "@/apis/gethers";
 
 const GetherPage = () => {
   //TODO : Gether 참여자가 아니면 다른 페이지 보여주기
+  //TODO : BetGether 로고 바꾸기
+  //TODO : QR 모달 제작 후 인증 버튼 누르면 뜨게 하기 (사람들한테 찍게 하도록)
   const { getherId } = useParams<{ getherId: string }>();
   const [isConnected, setIsConnected] = useState<boolean>(false);
   const [inputText, setInputText] = useState<string>("");
   const [chatData, setChatData] = useState<Message[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [getherData, setGetherData] = useState<GetherDetail>();
-  const [isLoading, setIsLoading] = useState<boolean>();
   const client = useRef<Client | null>(null);
 
   const navigate = useNavigate();
@@ -39,7 +40,6 @@ const GetherPage = () => {
   };
 
   const onShareClick = async () => {
-    //TODO : 공유 클립보드
     try {
       await navigator.clipboard.writeText(
         window.location.origin + "/invite/" + (getherData?.inviteCode ?? "")
@@ -64,14 +64,11 @@ const GetherPage = () => {
   useEffect(() => {
     (async () => {
       try {
-        setIsLoading(true);
         const result = await getGetherDetail(Number(getherId));
         console.log(result);
         setGetherData(result);
       } catch (error) {
         console.error("데이터 로드 실패:", error);
-      } finally {
-        setIsLoading(false);
       }
     })();
 
@@ -96,7 +93,6 @@ const GetherPage = () => {
         setIsConnected(true);
         console.log("STOMP Connected");
 
-        // 3. 구독 설정 (Subscription)
         client.current?.subscribe(
           `/sub/chat/room/${getherId}`,
           (message: IMessage) => {
@@ -121,7 +117,6 @@ const GetherPage = () => {
       },
     });
 
-    // 4. 클라이언트 활성화
     client.current.activate();
   };
 
@@ -130,7 +125,6 @@ const GetherPage = () => {
     client.current?.deactivate();
   };
 
-  // 5. 메시지 전송 (sendMessage와 동일)
   const sendMessageHandler = () => {
     if (!isConnected) alert("서버가 연결되지 않았습니다");
     if (!inputText.trim()) return;

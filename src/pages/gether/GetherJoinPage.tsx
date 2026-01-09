@@ -1,7 +1,7 @@
 ﻿import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { type GetherDetail, getGetherDetail } from "@/apis/gethers";
-import { useParams } from "react-router-dom";
+import { type GetherDetail, getGetherDetail, joinGether } from "@/apis/gethers";
+import { useNavigate, useParams } from "react-router-dom";
 import BetGetherBtn from "@/components/BetGetherBtn";
 import BetGetherHeader from "@/components/BetGetherHeader";
 import {
@@ -16,6 +16,7 @@ const GetherJoinPage = () => {
   const [gether, setGether] = useState<GetherDetail | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
   useEffect(() => {
     if (!getherId) return;
 
@@ -38,11 +39,14 @@ const GetherJoinPage = () => {
   if (error) return <div>{error}</div>;
   if (!gether) return <div>데이터를 찾을 수 없습니다.</div>;
 
+  const onBtnClick = () => {
+    joinGether(Number(getherId));
+    navigate(`/gether/${getherId}`);
+  };
   return (
     <BackgroundContainer $thumbnail={gether.imageUrl}>
       <BetGetherHeader>
         <GetherGoBackIcon />
-        <GetherSettingIcon />
       </BetGetherHeader>
       <GetherInfoContainer>
         <GetherNameDiv>{gether.title}</GetherNameDiv>
@@ -62,7 +66,11 @@ const GetherJoinPage = () => {
           {" " + gether.participantCount}
         </GetherMemberCount>
       </GetherFooter>
-      <BetGetherBtn isEnabled={true}>참여 하기</BetGetherBtn>
+      <BetGetherBtnWrapper>
+        <BetGetherBtn isEnabled={true} onClick={onBtnClick}>
+          참여 하기
+        </BetGetherBtn>
+      </BetGetherBtnWrapper>
       {/* <GetherJoinBtn>참여 하기</GetherJoinBtn> */}
     </BackgroundContainer>
   );
@@ -176,6 +184,10 @@ const GetherMemberCount = styled.div`
   font-weight: 500;
   line-height: var(--Static-Body-Small-Line-Height, 16px); /* 133.333% */
   letter-spacing: var(--Static-Body-Small-Tracking, 0.4px);
+`;
+
+const BetGetherBtnWrapper = styled.div`
+  padding: 0 25px 20px 25px;
 `;
 
 export default GetherJoinPage;

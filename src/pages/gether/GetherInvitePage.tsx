@@ -7,7 +7,7 @@ import styled from "styled-components";
 const GetherInvitePage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const { inviteCode } = useParams<{ inviteCode: string }>();
-  console.log(inviteCode);
+  // console.log(inviteCode);
   const navigate = useNavigate();
   useEffect(() => {
     (async () => {
@@ -16,14 +16,14 @@ const GetherInvitePage = () => {
         const result = await joinGetherByCode({
           inviteCode: inviteCode ?? "",
         });
-        console.log(result);
+        // console.log(result);
         setIsLoading(false);
         navigate(`/gether/${result.getherId}`);
       } catch (error) {
         console.error("데이터 로드 실패:", error);
       }
     })();
-  });
+  }, []);
   return (
     <Container>
       {isLoading ? (

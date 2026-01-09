@@ -2,8 +2,8 @@
 // import { getRanking } from "./apis/ranking";
 
 import { BrowserRouter } from "react-router-dom";
-import Router from "./Routes";
-import Container from "./styles/Container";
+import Router from "@/Routes";
+import Container from "@/styles/Container";
 
 function App() {
   // 왜 사용되는지 이해가 안 되신다면, 아래 주석을 살리고 res 뒤에 .을 붙여서 내부 멤버들을 조회해보시기 바랍니다.

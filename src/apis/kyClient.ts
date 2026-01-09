@@ -1,4 +1,5 @@
 ﻿import ky from "ky";
+import { getToken } from "../utils/token";
 
 export const client = ky.create({
   prefixUrl: `${import.meta.env.VITE_API_URL}/api`,
@@ -6,14 +7,10 @@ export const client = ky.create({
     beforeRequest: [
       (request) => {
         console.log(request);
-        /*
-         필요 시 사용, Auth Token을 사용하지 않기 때문에 필요 X. 
-         API 요청 전에 항상 해야하는 작업을 기입
-         */
-        //   const token = localStorage.getItem("token");
-        //   if (token) {
-        //     request.headers.set("Authorization", `Bearer ${token}`);
-        //   }
+        const token = getToken();
+        if (token) {
+          request.headers.set("Authorization", `${token}`);
+        }
       },
     ],
     // afterResponse: [

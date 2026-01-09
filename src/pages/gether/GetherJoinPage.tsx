@@ -1,11 +1,13 @@
 ﻿import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { type GetherDetail, getGetherDetail } from "../apis/gethers";
+import { type GetherDetail, getGetherDetail } from "@/apis/gethers";
 import { useParams } from "react-router-dom";
-import PointIcon from "../assets/gether/point.svg?react";
-import BackIcon from "../assets/gether/back.svg?react";
-import MemberIcon from "../assets/gether/member.svg?react";
-import SettingIcon from "../assets/gether/settings.svg?react";
+import PointIcon from "@/assets/gether/point.svg?react";
+import BackIcon from "@/assets/gether/back.svg?react";
+import MemberIcon from "@/assets/gether/member.svg?react";
+import SettingIcon from "@/assets/gether/settings.svg?react";
+import BetGetherBtn from "@/components/BetGetherBtn";
+import BetGetherHeader from "@/components/BetGetherHeader";
 
 const GetherJoinPage = () => {
   const { getherId } = useParams<{ getherId: string }>();
@@ -36,10 +38,10 @@ const GetherJoinPage = () => {
 
   return (
     <BackgroundContainer $thumbnail={gether.imageUrl}>
-      <GetherHeader>
+      <BetGetherHeader>
         <GetherGoBack />
         <GetherSetting />
-      </GetherHeader>
+      </BetGetherHeader>
       <GetherInfoContainer>
         <GetherNameDiv>{gether.title}</GetherNameDiv>
         <GetherDescDiv>{gether.description}</GetherDescDiv>
@@ -58,7 +60,8 @@ const GetherJoinPage = () => {
           {" " + gether.participantCount}
         </GetherMemberCount>
       </GetherFooter>
-      <GetherJoinBtn>참여 하기</GetherJoinBtn>
+      <BetGetherBtn isEnabled={true}>참여 하기</BetGetherBtn>
+      {/* <GetherJoinBtn>참여 하기</GetherJoinBtn> */}
     </BackgroundContainer>
   );
 };
@@ -89,12 +92,6 @@ const BackgroundContainer = styled.div<BackgroundContainerProps>`
   color: #fff;
 `;
 
-const GetherHeader = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin: 56px 16px;
-`;
 const GetherGoBack = styled(BackIcon)`
   width: 28px;
   height: 28px;

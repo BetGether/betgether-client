@@ -1,5 +1,6 @@
 // import { useEffect } from "react";
 // import { getRanking } from "./apis/ranking";
+import MainPage from "./pages/main/MainPage";
 
 import { BrowserRouter } from "react-router-dom";
 import Router from "./Routes";
@@ -13,6 +14,7 @@ function App() {
   //     console.log(res);
   //   })
   // })
+
   return (
     <BrowserRouter>
       <Container>
@@ -20,6 +22,7 @@ function App() {
       </Container>
     </BrowserRouter>
   );
+
 }
 
 export default App;

@@ -8,6 +8,7 @@ import MyGetherList from "../../components/gether/MyGetherList";
 import SearchWhite from "../../assets/Icon/searchWhite.svg";
 import Point from "../../assets/Icon/point.svg";
 import { useNavigate } from "react-router-dom";
+import BackgroundImg from "../../assets/Image/backgroundImage.png";
 
 const MainPage = () => {
     const navigate = useNavigate();
@@ -46,10 +47,11 @@ const MainPage = () => {
 
     return (
         <Container>
+            <BackgroundImage/>
             <Header>
                 <Logo>Bet:Gether</Logo>
                 <SearchIcon onClick={() => navigate("/search")}>
-                    <SearchWhite/>
+                    <img src={SearchWhite} alt="searchIcon"/>
                 </SearchIcon>              
             </Header>
 
@@ -59,7 +61,7 @@ const MainPage = () => {
                     <PointAmount>
                         {ranking?.myRanking.point.toLocaleString() || 0}
                     </PointAmount>
-                    <Point/>
+                    <img src={Point} alt="point"/>
                 </PointInfo>
             </PointCard>
 
@@ -90,11 +92,29 @@ const MainPage = () => {
 };
 
 const Container = styled.div`
-    width: 440px;
+    // width: 440px;
+    width: 100%;
     height: 100dvh;
-    background: url('../../assets/Image/backgroundImage.svg') lightgray 50% / cover no-repeat;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    background: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #201364;
+`;
+
+const BackgroundImage = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 300px;
+    background: url(${BackgroundImg}) lightgray 50% / cover no-repeat;
     mix-blend-mode: screen;
-    filter: blur(3.200000047683716px);
+    filter: blur(3.2px);
+    z-index: 1;
 `;
 
 const Header = styled.header`
@@ -105,7 +125,9 @@ const Header = styled.header`
     height: 56px;
     margin-top: 56px;
     margin-bottom: 11px;
-    padding: 10px 16px;
+    padding: 10px 26px;
+    position: relative;
+    z-index: 2;
 `;
 
 const Logo = styled.span`
@@ -126,9 +148,9 @@ const SearchIcon = styled.button`
 `;
 
 const PointCard = styled.div`
-    margin-left: 16px;
+    margin: 0 16px;
     display: flex;
-    width: 424px;
+    width: 408px;
     padding: 10px 15px;
     justify-content: space-between;
     align-items: center;
@@ -136,6 +158,8 @@ const PointCard = styled.div`
     border-radius: 15px;
     background: #FFF;
     box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.05);
+    position: relative;
+    z-index: 2;
 `;
 
 const PointLabel = styled.span`
@@ -175,12 +199,16 @@ const ContentContainer = styled.div`
     margin-top: 18px;
     width: 100%;
     display: flex;
+    flex: 1;
     padding-top: 24px;
     flex-direction: column;
     align-items: center;
     gap: 24px;
     border-radius: 30px 30px 0 0;
     background: #FFF;
+    position: relative;
+    z-index: 2;
+    min-height: 0;
 `;
 
 const TabContainer = styled.div`
@@ -196,6 +224,7 @@ const TabContainer = styled.div`
 const MyGetherTab = styled.div`
     display: flex;
     padding: 10px;
+    width: 182px;
     justify-content: center;
     align-items: center;
     flex: 1;
@@ -216,6 +245,7 @@ const MyGetherTab = styled.div`
 const RankingTab = styled.div`
     display: flex;
     padding: 10px;
+    width: 182px;
     justify-content: center;
     align-items: center;
     flex: 1;
@@ -233,14 +263,25 @@ const RankingTab = styled.div`
 `;
 
 const ContentArea = styled.div`
-  background: #fff;
-  width: 100%;
+    background: #fff;
+    width: 100%;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    min-height: 0;
+    -ms-overflow-style:none;
+
+    &::-webkit-scrollbar {
+    display: none;
+}
 `;
 
 const LoadingState = styled.div`
-  text-align: center;
-  padding: 20px;
-  color: #9ca3af;
+    text-align: center;
+    padding: 20px;
+    color: #9ca3af;
 `;
 
 export default MainPage;

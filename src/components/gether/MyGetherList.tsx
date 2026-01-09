@@ -81,7 +81,7 @@ const MyGetherList = ({ gethers }: MyGetherListProps) => {
     return (
         <Container>
             <SearchBar>
-                <SearchGray/>
+                <img src={SearchGray} alt="searchIcon"/>
                 <SearchInput
                     type="text"
                     placeholder="내 게더를 찾아봐요"
@@ -89,7 +89,7 @@ const MyGetherList = ({ gethers }: MyGetherListProps) => {
                     onChange={(e) => setSearchKeyword(e.target.value)}
                     />
                 <CancelButton onClick={handleClearSearch}>
-                    <Cancel/>
+                    <img src={Cancel} alt="cancelIcon"/>
                 </CancelButton> 
             </SearchBar>
 
@@ -98,7 +98,10 @@ const MyGetherList = ({ gethers }: MyGetherListProps) => {
                 <DropdownWrapper ref={dropdownRef}>
                 <DropdownButton onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
                     {SORT_OPTIONS[sortBy]}
-                    {isDropdownOpen ? <ArrowUp /> : <ArrowDown />}
+                    {isDropdownOpen ? 
+                    <img src={ArrowUp} alt="arrowUp"/>
+                    : 
+                    <img src={ArrowDown} alt="arrowDown"/>}
                 </DropdownButton>
                 
                 {isDropdownOpen && (
@@ -110,7 +113,6 @@ const MyGetherList = ({ gethers }: MyGetherListProps) => {
                         onClick={() => handleSortChange(option)}
                         >
                         {SORT_OPTIONS[option]}
-                        {sortBy === option && <ArrowUp/>}
                         </DropdownItem>
                     ))}
                     </DropdownMenu>
@@ -132,7 +134,7 @@ const MyGetherList = ({ gethers }: MyGetherListProps) => {
                         )}
                     </EmptyState>
                     )}
-                <CreateButton onClick={() => navigate("/gethers/create")}>
+                <CreateButton onClick={() => navigate("/gethers")}>
                     새로운 게더 만들기
                 </CreateButton>
             </GetherList>
@@ -153,6 +155,7 @@ const SearchBar = styled.div`
     width: 408px;
     padding: 5px 15px;
     align-items: center;
+    justify-content: center;
     gap: 9px;
     border-radius: 12px;
     background: #F8F8F8;
@@ -160,11 +163,13 @@ const SearchBar = styled.div`
 
 const SearchInput = styled.input`
     width: 320px;
+    border: none;
     display: flex;
     padding: 10px;
     justify-content: center;
     align-items: center;
     flex: 1;
+    background: #F8F8F8;
 
     color: #000;
     font-family: Pretendard;
@@ -192,7 +197,7 @@ const Header = styled.div`
 `;
 
 const SectionTitle = styled.div`
-    width: 83px;
+    width: 90px;
     height: 40px;
     display: flex;
     padding: 10px;
@@ -285,6 +290,7 @@ const EmptyMessage = styled.span`
 const CreateButton = styled.button`
     display: flex;
     height: 60px;
+    margin-bottom: 50px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -292,6 +298,7 @@ const CreateButton = styled.button`
     align-self: stretch;
     border-radius: 12px;
     background: #FFF;
+    border: none;
     box-shadow: 0 0 11px 0 rgba(0, 0, 0, 0.10);
 
     color: #757575;

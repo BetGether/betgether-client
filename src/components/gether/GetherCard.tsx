@@ -12,7 +12,6 @@ interface GetherCardProps {
 
 const GetherCard = ({gether}: GetherCardProps) => {
     const navigate = useNavigate();
-    const isBettingNow: boolean = true;
 
     return (
         <Card onClick={() => navigate(`/gethers/${gether.getherId}`)}>
@@ -21,14 +20,14 @@ const GetherCard = ({gether}: GetherCardProps) => {
                 <Overlay/>
             </ImageWapper>
             
-            {isBettingNow ? 
+            {gether.challengeStatus === "OPEN" ? 
                 <BettingOverlay>
-                    <TrackingOn/>
+                    <img src={TrackingOn} alt="challengeOpen"/>
                     <BettingInfo>베팅 중</BettingInfo>
                 </BettingOverlay> 
                 : 
                 <BettingOverlay>
-                    <TrackingOff/>
+                    <img src={TrackingOff} alt="challengeClose"/>
                     <BettingInfo>베팅 종료</BettingInfo>
                 </BettingOverlay>
             }
@@ -38,7 +37,7 @@ const GetherCard = ({gether}: GetherCardProps) => {
                     {gether.title}
                 </CardTitle>
                 <ParticipantInfo>
-                    <Person/>
+                    <img src={Person} alt="personIcon"/>
                     {gether.participantCount}
                 </ParticipantInfo>
             </CardContent>
@@ -56,22 +55,32 @@ const Card = styled.div`
 `;
 
 const ImageWapper = styled.div`
-    position: relative;
-    width: 100%
-    height: 100%
+    position: absolute;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
 `;
 
 const CardImage = styled.img`
-    width: 100%
-    height: 100%
+    width: 100%;
     object-fit: cover;
 `;
 
 const Overlay = styled.div`
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.80) 100%);
 `;
 
 const BettingOverlay = styled.div`
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 2;
+
     display: inline-flex;
     padding: 5px 9px;
     justify-content: center;
@@ -96,9 +105,14 @@ const BettingInfo = styled.span`
 `;
 
 const CardContent = styled.div`
+    position: absolute;
+    bottom: 0;
+    z-index: 2;
+
     display: flex;
     width: 100%;
     height: 45px;
+    margin: 10px 0;
     padding: 0 18px 0 6px;
     align-items: center;
 `;
@@ -111,7 +125,7 @@ const CardTitle = styled.div`
     align-items: center;
     flex: 1;
 
-    color: #FFF;
+    color: #fff;
     text-align: center;
     font-feature-settings: 'liga' off, 'clig' off;
 

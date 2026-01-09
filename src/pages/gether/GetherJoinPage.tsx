@@ -52,14 +52,14 @@ const GetherJoinPage = () => {
         <GetherDescDiv>{gether.description}</GetherDescDiv>
       </GetherInfoContainer>
       <GetherBetContainer>
-        <GetherBetInfoDiv>{"하드코딩"}</GetherBetInfoDiv>
+        <GetherBetInfoDiv>{gether.challengeTitle}</GetherBetInfoDiv>
         <GetherBetPointDiv>
-          <div>100하드코딩</div>
+          <div>{gether.challengeBetBoint}</div>
           <GetherPointIcon clickable={false} />
         </GetherBetPointDiv>
       </GetherBetContainer>
       <GetherFooter>
-        <GetherDate>{"2025.09.09하드코딩"}</GetherDate>
+        <GetherDate>{gether.challengeBetBoint}</GetherDate>
         <GetherMemberCount>
           <GetherMemberIcon clickable={false} />
           {" " + gether.participantCount}

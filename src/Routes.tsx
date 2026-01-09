@@ -2,6 +2,7 @@
 import GetherJoinPage from "./pages/GetherJoinPage";
 import LandingPage from "./pages/landing/landingPage";
 import MainPage from "./pages/main/MainPage";
+import SearchPage from "./pages/search/SearchPage"
 
 export default function Router() {
   const elements = useRoutes([
@@ -16,6 +17,10 @@ export default function Router() {
     {
       path: "/gethers/my",
       element: <MainPage />,
+    },
+    {
+      path: "/gethers/search",
+      element: <SearchPage/>
     },
   ]);
 

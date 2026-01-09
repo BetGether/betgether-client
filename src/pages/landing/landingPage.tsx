@@ -116,33 +116,6 @@ const PageWrapper = styled.div`
   }
 `;
 
-const LandingTitle = styled.div`
-  display: flex;
-  width: 263px;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 4px;
-`;
-
-const TitleText = styled.span`
-  color: #6155f5;
-  text-align: center;
-  font-family: Pretendard;
-  font-size: 50px;
-  font-weight: 700;
-  letter-spacing: -1.5px;
-`;
-
-const CatchPhraseText = styled.span`
-  color: #6155f5;
-  text-align: center;
-  font-family: Pretendard;
-  font-size: 20px;
-  font-weight: 400;
-  letter-spacing: -0.04px;
-`;
-
 const StartForm = styled.form`
   display: flex;
   width: 100%;

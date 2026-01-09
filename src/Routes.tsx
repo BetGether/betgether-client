@@ -8,7 +8,9 @@ import GetherInvitePage from "./pages/gether/GetherInvitePage";
 import GetherSettingPage from "./pages/gether/GetherSettingPage";
 import ErrorFallbackPage from "./pages/ErrorFallbackPage";
 import SearchPage from "@/pages/search/SearchPage";
+import CreateGether from "@/pages/gether/CreateGether";
 import VerifyPage from "@/pages/verify/VerifyPage";
+import EditGether from "@/pages/gether/EditGether";
 
 export default function Router() {
   const elements = useRoutes([
@@ -46,6 +48,14 @@ export default function Router() {
     {
       path: "/verify/:verifyToken",
       element: <VerifyPage />,
+    },
+    {
+      path: "/gethers/create",
+      element: <CreateGether/>,
+    },
+    {
+      path: "/gether/:getherId/edit",
+      element: <EditGether/>,
     },
   ]);
 

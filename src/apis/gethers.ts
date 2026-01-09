@@ -31,6 +31,10 @@ export interface GetherRequest {
     description: string;
     imageUrl: string;
     isPublic: boolean;
+    challenge: {
+        title: string;
+        betPoint: number;
+    }
 }
 
 export interface GetherResponse {
@@ -46,7 +50,7 @@ export interface GetherDetail extends Gether, GetherInviteCode{
     description: string;
     isHost: boolean;
     challengeTitle: string;
-    challengeBetBoint: number;
+    challengeBetPoint: number;
 }
 
 

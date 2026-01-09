@@ -11,19 +11,19 @@ interface GetherCardProps {
 const GetherCard = ({ gether }: GetherCardProps) => {
   const navigate = useNavigate();
 
-  return (
-    <Card onClick={() => navigate(`/gethers/${gether.getherId}`)}>
-      <ImageWapper>
-        <CardImage src={gether.imageUrl} alt={gether.title} />
-        <Overlay />
-      </ImageWapper>
-
-      {gether.challengeStatus === "OPEN" && (
-        <BettingOverlay>
-          <img src={TrackingOn} alt="challengeOpen" />
-          <BettingInfo>베팅 중</BettingInfo>
-        </BettingOverlay>
-      )}
+    return (
+        <Card onClick={() => navigate(`/gether/${gether.getherId}`)}>
+            <ImageWapper>
+                <CardImage src={gether.imageUrl} alt={gether.title}/>
+                <Overlay/>
+            </ImageWapper>
+            
+            {gether.challengeStatus === "OPEN" && 
+                <BettingOverlay>
+                    <img src={TrackingOn} alt="challengeOpen"/>
+                    <BettingInfo>베팅 중</BettingInfo>
+                </BettingOverlay> 
+            }
 
       <CardContent>
         <CardTitle>{gether.title}</CardTitle>

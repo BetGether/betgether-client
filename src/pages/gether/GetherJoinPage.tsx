@@ -56,12 +56,12 @@ const GetherJoinPage = () => {
       <GetherBetContainer>
         <GetherBetInfoDiv>{gether.challengeTitle}</GetherBetInfoDiv>
         <GetherBetPointDiv>
-          <div>{gether.challengeBetBoint}</div>
+          <div>{gether.challengeBetPoint}</div>
           <GetherPointIcon clickable={false} />
         </GetherBetPointDiv>
       </GetherBetContainer>
       <GetherFooter>
-        <GetherDate>{gether.challengeBetBoint}</GetherDate>
+        <GetherDate>{gether.challengeBetPoint}</GetherDate>
         <GetherMemberCount>
           <GetherMemberIcon clickable={false} />
           {" " + gether.participantCount}

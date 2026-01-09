@@ -1,5 +1,5 @@
-﻿import ky from "ky";
-import { getToken } from "../utils/token";
+﻿import ky, { type NormalizedOptions } from "ky";
+import { getToken, removeToken } from "../utils/token";
 
 export const client = ky.create({
   prefixUrl: `${import.meta.env.VITE_API_URL}/api`,
@@ -13,12 +13,21 @@ export const client = ky.create({
         }
       },
     ],
-    // afterResponse: [
-    //   async (request, options, response) => {
-    //     if (response.status === 500) {
-    //       // 서버 에러 등 에러를 잡을 때 사용
-    //     }
-    //   },
-    // ],
+    afterResponse: [
+      async (
+        _request: Request,
+        _options: NormalizedOptions,
+        response: Response
+      ) => {
+        if (response.status === 401) {
+          removeToken();
+          window.location.href = "/login";
+        }
+        if (!response.ok) {
+          window.location.href = "/error";
+        }
+        return response;
+      },
+    ],
   },
 });

@@ -7,3 +7,9 @@
 button {
   cursor: pointer;
 }
+
+div {
+  -webkit-user-select: none; /* Chrome, Safari, Opera */
+  -ms-user-select: none; /* IE 10+ */
+  user-select: none; /* Standard */
+}

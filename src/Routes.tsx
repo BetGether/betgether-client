@@ -3,7 +3,7 @@
 import GetherJoinPage from "@/pages/gether/GetherJoinPage";
 import LandingPage from "@/pages/landing/landingPage";
 import GetherPage from "@/pages/gether/GetherPage";
-import MainPage from "@ /pages/main/MainPage";
+import MainPage from "@/pages/main/MainPage";
 
 
 export default function Router() {
